@@ -6,6 +6,10 @@ public class Cell {
     private boolean isAlive;
 
     public Cell(int row, int column) {
-        throw new IllegalArgumentException();
+        if(row == -1 && column == -1){
+            throw new IllegalArgumentException();
+        }
+        this.row = row;
+        this.column = column;
     }
 }
