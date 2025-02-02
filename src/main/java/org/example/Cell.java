@@ -23,7 +23,11 @@ public class Cell {
         if(this.isAlive()){
             if(aliveNeighbours ==2 || aliveNeighbours ==3){
                 return this.isAlive = true;
-
+            }
+        }
+        else{
+            if(aliveNeighbours ==3){
+                return this.isAlive = true;
             }
         }
         return this.isAlive =false;

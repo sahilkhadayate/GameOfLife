@@ -71,4 +71,36 @@ public class CellTest {
         boolean isAlive = cell.isAlive();
         assertTrue(isAlive);
     }
+
+    @Test
+    public void testUpdateCellStateUpdatesItToNotAliveStateWhenAliveNeighboursAre0(){
+        Cell cell =  new Cell(10, 10,true);
+        cell.updateCellState(0);
+        boolean isAlive = cell.isAlive();
+        assertFalse(isAlive);
+    }
+
+    @Test
+    public void testUpdateCellStateUpdatesItToNotAliveStateWhenAliveNeighboursAre1(){
+        Cell cell =  new Cell(10, 10,true);
+        cell.updateCellState(1);
+        boolean isAlive = cell.isAlive();
+        assertFalse(isAlive);
+    }
+
+    @Test
+    public void testUpdateCellStateUpdatesItToNotAliveStateWhenAliveNeighboursAre4(){
+        Cell cell =  new Cell(10, 10,true);
+        cell.updateCellState(4);
+        boolean isAlive = cell.isAlive();
+        assertFalse(isAlive);
+    }
+
+    @Test
+    public void testUpdateCellStateUpdatesItFromNotAliveToAliveStateWhenAliveNeighboursAre3(){
+        Cell cell =  new Cell(10, 10,false);
+        cell.updateCellState(3);
+        boolean isAlive = cell.isAlive();
+        assertTrue(isAlive);
+    }
 }
