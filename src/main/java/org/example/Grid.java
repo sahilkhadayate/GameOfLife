@@ -1,7 +1,6 @@
 package org.example;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 
 //Allow for a command line interface to start a new run by specifying m & n and a percentage value for seeding. Start the Game Of Life by seeding a random population of cells in the specified percentage on the grid .
@@ -25,10 +24,22 @@ public class Grid {
         if(percentage < 1){
             throw new IllegalArgumentException();
         }
+        int totalCells = rows * columns;
+        int numberOfCellsToSeed = (percentage * totalCells) / 100;
+
+        Random random = new Random();
+        Set<Integer> selectedCells = new HashSet<>();
+
+        while (selectedCells.size() < numberOfCellsToSeed) {
+            selectedCells.add(random.nextInt(totalCells));
+        }
+
         for (int i = 0; i < rows; i++) {
             List<Cell> row = new ArrayList<>();
             for (int j = 0; j < columns; j++) {
-                row.add(new Cell(i, j,false));
+                int linearIndex = i*columns+j;
+                boolean isAlive = selectedCells.contains(linearIndex);
+                row.add(new Cell(i, j,isAlive));
             }
             grid.add(row);
         }

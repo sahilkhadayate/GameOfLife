@@ -2,8 +2,7 @@ package org.example;
 
 import org.junit.Test;
 
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertThrows;
+import static org.junit.Assert.*;
 
 public class GridTest {
 
@@ -50,7 +49,7 @@ public class GridTest {
     }
 
     @Test
-    public void testCellsInGridAreNonNegative(){
+    public void testCellsInGridAreNonNull(){
         Grid grid = new Grid(3,3);
         grid.seedGrid(10);
         for(int i=0;i<3;i++){
@@ -58,6 +57,21 @@ public class GridTest {
                 assertNotNull(grid.getCell(i,j));
             }
         }
+    }
+
+    @Test
+    public void test7CellsAreAliveInGridAreAliveWhenPercentageIs30And5x5Grid(){
+        Grid grid = new Grid(5,5);
+        grid.seedGrid(30);
+        int count = 0;
+        for(int i=0;i<5;i++){
+            for(int j=0;j<5;j++){
+                if(grid.getCell(i,j).isAlive()){
+                    count++;
+                }
+            }
+        }
+        assertEquals(7,count);
     }
 
 }
