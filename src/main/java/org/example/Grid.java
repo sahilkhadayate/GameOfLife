@@ -1,5 +1,6 @@
 package org.example;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -10,17 +11,21 @@ import java.util.List;
 public class Grid {
     private final int rows;
     private final int columns;
-
-    public Grid(int rows, int columns, int percentage){
-        if(rows <= -1 || columns <= -1 || percentage < 1){
+    private List<List<Cell>> grid;
+    public Grid(int rows, int columns){
+        if(rows <= -1 || columns <= -1){
             throw new IllegalArgumentException();
         }
         this.rows = rows;
         this.columns = columns;
-        seedGrid(percentage);
+        this.grid = new ArrayList<>();
     }
 
-    private void seedGrid(int percentage){
+    public void seedGrid(int percentage){
+        if(percentage < 1){
+            throw new IllegalArgumentException();
+        }
+
 
     }
 }
