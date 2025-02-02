@@ -20,6 +20,22 @@ public class Grid {
         this.grid = new ArrayList<>();
     }
 
+    public Grid(Grid other) {
+        this.rows = other.rows;
+        this.columns = other.columns;
+        this.grid = new ArrayList<>();
+
+        for (int i = 0; i < rows; i++) {
+            List<Cell> newRow = new ArrayList<>();
+            for (int j = 0; j < columns; j++) {
+                Cell original = other.grid.get(i).get(j);
+                newRow.add(new Cell(i,j, original.isAlive()));
+            }
+            this.grid.add(newRow);
+        }
+    }
+
+
     public void seedGrid(int percentage){
         if(percentage < 1){
             throw new IllegalArgumentException();
@@ -92,6 +108,7 @@ public class Grid {
             for(int j=0;j<columns;j++){
                 Cell cell = this.grid.get(i).get(j);
                 int aliveNeighbours = calculateAliveNeighbours(i, j);
+                cell.updateCellState(aliveNeighbours);
                 row.add(cell);
             }
             newGrid.add(row);
@@ -100,7 +117,19 @@ public class Grid {
     }
 
     private int calculateAliveNeighbours(int x, int y){
-return 0;
+        int[][] directions = {{1,0},{0,1},{-1,0},{0,-1},{1,1},{1,-1},{-1,1},{-1,-1}};
+        int aliveNeighbours = 0;
+        for(int[] direction: directions){
+            int newX = x+direction[0];
+            int newY = y+direction[1];
+            if(newX >= 0 && newX < rows && newY >= 0 && newY < columns){
+               Cell neighbouringCell = this.grid.get(newX).get(newY);
+                if(neighbouringCell.isAlive()){
+                     aliveNeighbours++;
+                }
+            }
+        }
+return aliveNeighbours;
     }
 
 
