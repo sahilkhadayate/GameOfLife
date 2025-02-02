@@ -12,10 +12,21 @@ public class GameController {
     public void startGame() {
         grid.printCurrentGridState();
         System.out.println("\n");
+        addDelay();
         while (grid.canUpdateGrid()) {
             grid.updateGrid();
             grid.printCurrentGridState();
             System.out.println("\n");
+
+            addDelay();
+        }
+    }
+
+    private static void addDelay() {
+        try {
+            Thread.sleep(1000); // Pause for 500ms to simulate animation
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
         }
     }
 }
