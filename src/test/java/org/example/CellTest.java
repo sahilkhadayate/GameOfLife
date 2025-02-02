@@ -56,4 +56,12 @@ public class CellTest {
         Cell cell =  new Cell(10, 10,false);
         assertThrows(IllegalArgumentException.class, () -> cell.updateCellState(-3));
     }
+
+    @Test
+    public void testUpdateCellStateUpdatesItToAliveStateWhenAliveNeighboursAre2(){
+        Cell cell =  new Cell(10, 10,true);
+        cell.updateCellState(2);
+        boolean isAlive = cell.isAlive();
+        assert(isAlive);
+    }
 }

@@ -19,6 +19,12 @@ public class Cell {
         if(aliveNeighbours<0){
         throw new IllegalArgumentException();
         }
+
+        if(this.isAlive()){
+            if(aliveNeighbours ==2){
+                this.isAlive = true;
+            }
+        }
     }
 
     public boolean isAlive() {
