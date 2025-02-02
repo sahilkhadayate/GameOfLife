@@ -69,15 +69,39 @@ public class Grid {
             System.out.println();
         }
     }
-    private void updateGrid(){
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null || getClass() != obj.getClass()) {
+            return false;
+        }
+        Grid grid = (Grid) obj;
+        if (this.rows != grid.rows || this.columns != grid.columns) {
+            return false;
+        }
+
+        return this.grid.equals(grid.grid);
+    }
+
+    public void updateGrid(){
         List<List<Cell>> newGrid = new ArrayList<>();
         for(int i=0;i<rows;i++){
             List<Cell> row = new ArrayList<>();
             for(int j=0;j<columns;j++){
                 Cell cell = this.grid.get(i).get(j);
+                int aliveNeighbours = calculateAliveNeighbours(i, j);
+                row.add(cell);
             }
             newGrid.add(row);
         }
         this.grid = newGrid;
     }
+
+    private int calculateAliveNeighbours(int x, int y){
+return 0;
+    }
+
+
 }

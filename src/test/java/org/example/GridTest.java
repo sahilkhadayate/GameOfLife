@@ -75,5 +75,15 @@ public class GridTest {
         assertEquals(7,count);
     }
 
+    @Test
+    public void testUpdateGridStateChangesStateOfGridAfterOneIteration(){
+        Grid grid = new Grid(5,5);
+        grid.seedGrid(30);
+        Grid initialgrid = grid;
+        grid.printCurrentGridState();
+        grid.updateGrid();
+        grid.printCurrentGridState();
+        assertNotEquals(initialgrid, grid);
+    }
 
 }
