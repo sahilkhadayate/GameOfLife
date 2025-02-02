@@ -46,8 +46,14 @@ public class CellTest {
     }
 
     @Test
-    public void testpdateCellStateThrowsExceptionWhenaliveNeighboursIsNegative1(){
+    public void testUpdateCellStateThrowsExceptionWhenAliveNeighboursIsNegative1(){
         Cell cell =  new Cell(10, 10,false);
         assertThrows(IllegalArgumentException.class, () -> cell.updateCellState(-1));
+    }
+
+    @Test
+    public void testUpdateCellStateThrowsExceptionWhenAliveNeighboursIsNegative3(){
+        Cell cell =  new Cell(10, 10,false);
+        assertThrows(IllegalArgumentException.class, () -> cell.updateCellState(-3));
     }
 }

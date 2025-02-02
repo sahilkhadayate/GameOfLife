@@ -16,7 +16,9 @@ public class Cell {
     }
 
     public void updateCellState(int aliveNeighbours){
+        if(aliveNeighbours<0){
         throw new IllegalArgumentException();
+        }
     }
 
     public boolean isAlive() {
