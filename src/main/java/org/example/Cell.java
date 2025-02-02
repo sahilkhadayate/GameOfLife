@@ -19,18 +19,16 @@ public class Cell {
         if(aliveNeighbours<0){
         throw new IllegalArgumentException();
         }
+        return this.isAlive=determineNextState(aliveNeighbours);
+    }
 
+    public boolean determineNextState(int aliveNeighbours) {
         if(this.isAlive()){
-            if(aliveNeighbours ==2 || aliveNeighbours ==3){
-                return this.isAlive = true;
-            }
+            return aliveNeighbours == 2 || aliveNeighbours == 3;
         }
         else{
-            if(aliveNeighbours ==3){
-                return this.isAlive = true;
-            }
+            return aliveNeighbours == 3;
         }
-        return this.isAlive =false;
     }
 
     public boolean isAlive() {

@@ -37,7 +37,7 @@ public class Grid {
 
 
     public void seedGrid(int percentage){
-        if(percentage < 1){
+        if(percentage < 1 || percentage > 100){
             throw new IllegalArgumentException();
         }
         int totalCells = rows * columns;
@@ -100,6 +100,11 @@ public class Grid {
 
         return this.grid.equals(grid.grid);
     }
+    @Override
+    public int hashCode() {
+        return Objects.hash(rows, columns, grid);
+    }
+
 
     public void updateGrid(){
         List<List<Cell>> newGrid = new ArrayList<>();
@@ -108,8 +113,8 @@ public class Grid {
             for(int j=0;j<columns;j++){
                 Cell cell = this.grid.get(i).get(j);
                 int aliveNeighbours = calculateAliveNeighbours(i, j);
-                cell.updateCellState(aliveNeighbours);
-                row.add(cell);
+                boolean nextState = cell.determineNextState(aliveNeighbours);
+                row.add(new Cell(i, j, nextState));
             }
             newGrid.add(row);
         }
@@ -133,4 +138,16 @@ return aliveNeighbours;
     }
 
 
+    public boolean canUpdateGrid() {
+        for (int i = 0; i < rows; i++) {
+            for (int j = 0; j < columns; j++) {
+                Cell cell = this.grid.get(i).get(j);
+                int aliveNeighbours = calculateAliveNeighbours(i, j);
+                if (cell.determineNextState(aliveNeighbours) != cell.isAlive()) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
 }
