@@ -2,8 +2,7 @@ package org.example;
 
 import org.junit.Test;
 
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertThrows;
+import static org.junit.Assert.*;
 
 public class CellTest {
 
@@ -62,6 +61,14 @@ public class CellTest {
         Cell cell =  new Cell(10, 10,true);
         cell.updateCellState(2);
         boolean isAlive = cell.isAlive();
-        assert(isAlive);
+        assertTrue(isAlive);
+    }
+
+    @Test
+    public void testUpdateCellStateUpdatesItToAliveStateWhenAliveNeighboursAre3(){
+        Cell cell =  new Cell(10, 10,true);
+        cell.updateCellState(3);
+        boolean isAlive = cell.isAlive();
+        assertTrue(isAlive);
     }
 }

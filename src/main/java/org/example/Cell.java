@@ -15,16 +15,18 @@ public class Cell {
 
     }
 
-    public void updateCellState(int aliveNeighbours){
+    public boolean updateCellState(int aliveNeighbours){
         if(aliveNeighbours<0){
         throw new IllegalArgumentException();
         }
 
         if(this.isAlive()){
-            if(aliveNeighbours ==2){
-                this.isAlive = true;
+            if(aliveNeighbours ==2 || aliveNeighbours ==3){
+                return this.isAlive = true;
+
             }
         }
+        return this.isAlive =false;
     }
 
     public boolean isAlive() {
