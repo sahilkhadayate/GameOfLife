@@ -47,6 +47,27 @@ public class Grid {
     }
 
     public Cell getCell(int x_coordinate, int y_coordinate) {
-        return grid.get(x_coordinate).get(y_coordinate);
+        if(x_coordinate < 0 || y_coordinate < 0){
+            throw new IllegalArgumentException();
+        }
+        return this.grid.get(x_coordinate).get(y_coordinate);
+    }
+
+    public void printCurrentGridState(){
+        if(this.grid.isEmpty()){
+            System.out.println("Grid is empty");
+            return;
+        }
+        for(int i=0;i<rows;i++){
+            for(int j=0;j<columns;j++){
+                Cell cell = this.grid.get(i).get(j);
+                if(cell.isAlive()){
+                    System.out.print("* ");
+                }else{
+                    System.out.print("- ");
+                }
+            }
+            System.out.println();
+        }
     }
 }

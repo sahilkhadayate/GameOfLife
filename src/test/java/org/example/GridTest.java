@@ -71,7 +71,9 @@ public class GridTest {
                 }
             }
         }
+        grid.printCurrentGridState();
         assertEquals(7,count);
     }
+
 
 }
