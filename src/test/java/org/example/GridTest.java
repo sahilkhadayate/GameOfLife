@@ -9,26 +9,31 @@ public class GridTest {
 
     @Test
     public void testGridCreationThrowsExceptionWhenRowIsNegative1(){
-        assertThrows(IllegalArgumentException.class, () -> new Grid(-1, 1));
+        assertThrows(IllegalArgumentException.class, () -> new Grid(-1, 1,5));
     }
 
     @Test
     public void testGridCreationThrowsExceptionWhenColumnIsNegative1(){
-        assertThrows(IllegalArgumentException.class, () -> new Grid(1, -1));
+        assertThrows(IllegalArgumentException.class, () -> new Grid(1, -1,5));
     }
 
     @Test
     public void testGridCreationThrowsExceptionWhenColumnAndRowIsNegative1(){
-        assertThrows(IllegalArgumentException.class, () -> new Grid(-1, -1));
+        assertThrows(IllegalArgumentException.class, () -> new Grid(-1, -1,5));
     }
     @Test
     public void testGridCreationThrowsExceptionWhenColumnIs10AndRowIsNegative10(){
-        assertThrows(IllegalArgumentException.class, () -> new Grid(10, -1));
+        assertThrows(IllegalArgumentException.class, () -> new Grid(10, -1,5));
     }
 
     @Test
     public void testGridCreatedWhenRowIs1AndColumnIs1(){
-        Grid grid = new Grid(1, 1);
+        Grid grid = new Grid(1, 1,5);
         assertNotNull(grid);
+    }
+    @Test
+    public void testGridThrowsExceptionWhenPercentageIsNegative1(){
+        assertThrows(IllegalArgumentException.class, () -> new Grid(10, 10,-1));
+
     }
 }
