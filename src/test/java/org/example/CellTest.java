@@ -32,4 +32,9 @@ public class CellTest {
     public void testCellCreationThrowsExceptionWhenRowIs10AndColumnIsNegative1(){
         assertThrows(IllegalArgumentException.class, () -> new Cell(10, -1));
     }
+
+    @Test
+    public void testCellCreationThrowsExceptionWhenRowIsNegative10AndColumnIs10(){
+        assertThrows(IllegalArgumentException.class, () -> new Cell(-10, 10));
+    }
 }
