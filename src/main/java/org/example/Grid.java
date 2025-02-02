@@ -12,7 +12,7 @@ public class Grid {
     private final int columns;
 
     public Grid(int rows, int columns, int percentage){
-        if(rows <= -1 || columns <= -1 || percentage == -1){
+        if(rows <= -1 || columns <= -1 || percentage < 1){
             throw new IllegalArgumentException();
         }
         this.rows = rows;

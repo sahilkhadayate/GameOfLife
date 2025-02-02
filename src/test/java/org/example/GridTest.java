@@ -34,6 +34,11 @@ public class GridTest {
     @Test
     public void testGridThrowsExceptionWhenPercentageIsNegative1(){
         assertThrows(IllegalArgumentException.class, () -> new Grid(10, 10,-1));
-
     }
+
+    @Test
+    public void testGridThrowsExceptionWhenPercentageIsNegative3(){
+        assertThrows(IllegalArgumentException.class, () -> new Grid(10, 10,-3));
+    }
+
 }
