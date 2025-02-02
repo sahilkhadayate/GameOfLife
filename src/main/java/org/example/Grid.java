@@ -25,7 +25,17 @@ public class Grid {
         if(percentage < 1){
             throw new IllegalArgumentException();
         }
+        for (int i = 0; i < rows; i++) {
+            List<Cell> row = new ArrayList<>();
+            for (int j = 0; j < columns; j++) {
+                row.add(new Cell(i, j,false));
+            }
+            grid.add(row);
+        }
 
+    }
 
+    public Cell getCell(int x_coordinate, int y_coordinate) {
+        return grid.get(x_coordinate).get(y_coordinate);
     }
 }

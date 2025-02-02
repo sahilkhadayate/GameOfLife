@@ -48,4 +48,16 @@ public class GridTest {
     Grid grid = new Grid(3,3);
     grid.seedGrid(10);
     }
+
+    @Test
+    public void testCellsInGridAreNonNegative(){
+        Grid grid = new Grid(3,3);
+        grid.seedGrid(10);
+        for(int i=0;i<3;i++){
+            for(int j=0;j<3;j++){
+                assertNotNull(grid.getCell(i,j));
+            }
+        }
+    }
+
 }

@@ -39,7 +39,7 @@ public class CellTest {
     }
 
     @Test
-    public void testCellisAliveReturnsFalseWhenCellIsNotAlive(){
+    public void testCellIIsAliveReturnsFalseWhenCellIsNotAlive(){
       Cell cell =  new Cell(10, 10,false);
         boolean isAlive = cell.isAlive();
         assert(!isAlive);
