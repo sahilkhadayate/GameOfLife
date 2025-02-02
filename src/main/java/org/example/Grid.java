@@ -55,8 +55,7 @@ public class Grid {
 
     public void printCurrentGridState(){
         if(this.grid.isEmpty()){
-            System.out.println("Grid is empty");
-            return;
+            throw new IllegalStateException();
         }
         for(int i=0;i<rows;i++){
             for(int j=0;j<columns;j++){
@@ -69,5 +68,16 @@ public class Grid {
             }
             System.out.println();
         }
+    }
+    private void updateGrid(){
+        List<List<Cell>> newGrid = new ArrayList<>();
+        for(int i=0;i<rows;i++){
+            List<Cell> row = new ArrayList<>();
+            for(int j=0;j<columns;j++){
+                Cell cell = this.grid.get(i).get(j);
+            }
+            newGrid.add(row);
+        }
+        this.grid = newGrid;
     }
 }

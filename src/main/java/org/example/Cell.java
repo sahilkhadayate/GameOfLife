@@ -15,6 +15,10 @@ public class Cell {
 
     }
 
+    public void updateCellState(int aliveNeighbours){
+        throw new IllegalArgumentException();
+    }
+
     public boolean isAlive() {
         return isAlive;
     }

@@ -44,4 +44,10 @@ public class CellTest {
         boolean isAlive = cell.isAlive();
         assert(!isAlive);
     }
+
+    @Test
+    public void testpdateCellStateThrowsExceptionWhenaliveNeighboursIsNegative1(){
+        Cell cell =  new Cell(10, 10,false);
+        assertThrows(IllegalArgumentException.class, () -> cell.updateCellState(-1));
+    }
 }
