@@ -23,8 +23,13 @@ public class CellTest {
     }
 
     @Test
-    public void testCellCreatedWhenRowAndColumnArePositive(){
+    public void testCellCreatedWhenRowIs1AndColumnIs1(){
         Cell cell = new Cell(1, 1);
         assertNotNull(cell);
+    }
+
+    @Test
+    public void testCellCreationThrowsExceptionWhenRowIs10AndColumnIsNegative1(){
+        assertThrows(IllegalArgumentException.class, () -> new Cell(10, -1));
     }
 }
