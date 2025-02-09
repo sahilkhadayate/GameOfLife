@@ -8,6 +8,7 @@ import java.util.*;
 //Continue until all cells are dead or user ends the simulation
 
 public class Grid {
+    public static final int[][] DIRECTIONS = new int[][]{{1, 0}, {0, 1}, {-1, 0}, {0, -1}, {1, 1}, {1, -1}, {-1, 1}, {-1, -1}};
     private final int rows;
     private final int columns;
     private List<List<Cell>> grid;
@@ -37,12 +38,12 @@ public class Grid {
     }
 
 
-    public void seedGrid(int percentage){
+    public void seedGrid(double percentage){
         if(percentage < 1 || percentage > 100){
             throw new IllegalArgumentException();
         }
         int totalCells = rows * columns;
-        int numberOfCellsToSeed = (percentage * totalCells) / 100;
+        int numberOfCellsToSeed = (int)(percentage * totalCells) / 100;
 
         Random random = new Random();
         Set<Integer> selectedCells = new HashSet<>();
@@ -129,21 +130,21 @@ public class Grid {
     }
 
     private Cell updateCell(int rowIndex, int columnIndex) {
-        Cell cell = this.grid.get(rowIndex).get(columnIndex);
+        Cell cell = getCell(rowIndex, columnIndex);
         int aliveNeighbours = calculateAliveNeighbours(rowIndex, columnIndex);
         boolean nextState = cell.determineNextState(aliveNeighbours);
         return new Cell(rowIndex, columnIndex, nextState);
     }
 
 
+
     private int calculateAliveNeighbours(int xCoordinate, int yCoordinate){
-        int[][] directions = {{1,0},{0,1},{-1,0},{0,-1},{1,1},{1,-1},{-1,1},{-1,-1}};
         int aliveNeighbours = 0;
-        for(int[] direction: directions){
-            int newX = xCoordinate+direction[0];
-            int newY = yCoordinate+direction[1];
-            if(newX >= 0 && newX < rows && newY >= 0 && newY < columns){
-               Cell neighbouringCell = this.grid.get(newX).get(newY);
+        for(int[] direction: DIRECTIONS){
+            int newXCoordinate = xCoordinate+direction[0];
+            int newYCoordinate = yCoordinate+direction[1];
+            if(newXCoordinate >= 0 && newXCoordinate < rows && newYCoordinate >= 0 && newYCoordinate < columns){
+               Cell neighbouringCell = getCell(newXCoordinate, newYCoordinate);
                 if(neighbouringCell.isAlive()){
                      aliveNeighbours++;
                 }
@@ -153,10 +154,11 @@ return aliveNeighbours;
     }
 
 
+
     public boolean canGridBeUpdated() {
         for (int i = 0; i < rows; i++) {
             for (int j = 0; j < columns; j++) {
-                Cell cell = this.grid.get(i).get(j);
+                Cell cell = getCell( i, j );
                 int aliveNeighbours = calculateAliveNeighbours(i, j);
                 if (cell.determineNextState(aliveNeighbours) != cell.isAlive()) {
                     return true;
