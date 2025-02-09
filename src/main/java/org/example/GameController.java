@@ -13,7 +13,7 @@ public class GameController {
         grid.printCurrentGridState();
         System.out.println("\n");
         addDelay();
-        while (grid.canUpdateGrid()) {
+        while (grid.canGridBeUpdated()) {
             grid.updateGrid();
             grid.printCurrentGridState();
             System.out.println("\n");
