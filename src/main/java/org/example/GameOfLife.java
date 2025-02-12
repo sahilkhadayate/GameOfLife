@@ -1,23 +1,23 @@
 package org.example;
 
-public class GameController {
+public class GameOfLife {
 
     private final Grid grid;
 
-    public GameController(int m, int n, int seedPercentage) {
+    public GameOfLife(int m, int n, int seedPercentage) {
         this.grid = new Grid(m, n);
         grid.seedGrid(seedPercentage);
     }
 
     public void startGame() {
-        grid.printCurrentGridState();
+        grid.displayCurrentGridState();
         System.out.println("\n");
         addDelay();
-        while (grid.canGridBeUpdated()) {
+        while (grid.canGridBeUpdatedFurther()) {
             grid.updateGrid();
-            grid.printCurrentGridState();
-            System.out.println("\n");
+            grid.displayCurrentGridState();
 
+            System.out.println("\n");
             addDelay();
         }
     }

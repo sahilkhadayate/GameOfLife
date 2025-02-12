@@ -31,7 +31,7 @@ public class Grid {
             List<Cell> newRow = new ArrayList<>();
             for (int j = 0; j < columns; j++) {
                 Cell original = other.grid.get(i).get(j);
-                newRow.add(new Cell(i,j, original.isAlive()));
+                newRow.add(new Cell(original.isAlive()));
             }
             this.grid.add(newRow);
         }
@@ -57,7 +57,7 @@ public class Grid {
             for (int j = 0; j < columns; j++) {
                 int linearIndex = i*columns+j;
                 boolean isAlive = selectedCells.contains(linearIndex);
-                Cell cell = new Cell(i, j,isAlive);
+                Cell cell = new Cell(isAlive);
                 row.add(cell);
             }
             grid.add(row);
@@ -65,14 +65,7 @@ public class Grid {
 
     }
 
-    public Cell getCell(int xCoordinate, int yCoordinate) {
-        if(xCoordinate < 0 || yCoordinate < 0){
-            throw new IllegalArgumentException();
-        }
-        return this.grid.get(xCoordinate).get(yCoordinate);
-    }
-
-    public void printCurrentGridState(){
+    public void displayCurrentGridState(){
         if(this.grid.isEmpty()){
             throw new IllegalStateException();
         }
@@ -88,26 +81,6 @@ public class Grid {
             System.out.println();
         }
     }
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (obj == null || getClass() != obj.getClass()) {
-            return false;
-        }
-        Grid grid = (Grid) obj;
-        if (this.rows != grid.rows || this.columns != grid.columns) {
-            return false;
-        }
-
-        return this.grid.equals(grid.grid);
-    }
-    @Override
-    public int hashCode() {
-        return Objects.hash(rows, columns, grid);
-    }
-
 
     public void updateGrid() {
         this.grid = buildUpdatedGrid();
@@ -133,7 +106,7 @@ public class Grid {
         Cell cell = getCell(rowIndex, columnIndex);
         int aliveNeighbours = calculateAliveNeighbours(rowIndex, columnIndex);
         boolean nextState = cell.determineNextState(aliveNeighbours);
-        return new Cell(rowIndex, columnIndex, nextState);
+        return new Cell(nextState);
     }
 
 
@@ -154,8 +127,7 @@ return aliveNeighbours;
     }
 
 
-
-    public boolean canGridBeUpdated() {
+    public boolean canGridBeUpdatedFurther() {
         for (int i = 0; i < rows; i++) {
             for (int j = 0; j < columns; j++) {
                 Cell cell = getCell( i, j );
@@ -167,4 +139,13 @@ return aliveNeighbours;
         }
         return false;
     }
+    public Cell getCell(int xCoordinate, int yCoordinate) {
+        if(xCoordinate < 0 || yCoordinate < 0){
+            throw new IllegalArgumentException();
+        }
+        return this.grid.get(xCoordinate).get(yCoordinate);
+    }
+
+
 }
+

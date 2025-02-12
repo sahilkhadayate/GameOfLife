@@ -4,13 +4,13 @@ import org.junit.Test;
 
 import static org.junit.Assert.assertNotNull;
 
-public class GameControllerTest {
+public class GameOfLifeTest {
 
     @Test
     public void testStartGame() {
         //Start the game
-        GameController gameController = new GameController(5,5,50);
-        gameController.startGame();
+        GameOfLife gameOfLife = new GameOfLife(5, 5, 50);
+        gameOfLife.startGame();
 
     }
 }

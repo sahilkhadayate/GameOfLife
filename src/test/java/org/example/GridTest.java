@@ -67,7 +67,7 @@ public class GridTest {
                 }
             }
         }
-        grid.printCurrentGridState();
+        grid.displayCurrentGridState();
         assertEquals(7,count);
     }
 
@@ -76,9 +76,9 @@ public class GridTest {
         Grid grid = new Grid(5,5);
         grid.seedGrid(30);
         Grid initialGrid = new Grid(grid);
-        grid.printCurrentGridState();
+        grid.displayCurrentGridState();
         grid.updateGrid();
-        grid.printCurrentGridState();
+        grid.displayCurrentGridState();
         assertNotEquals(initialGrid, grid);
     }
 
