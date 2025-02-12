@@ -11,7 +11,7 @@ public class Grid {
     public static final int[][] DIRECTIONS = new int[][]{{1, 0}, {0, 1}, {-1, 0}, {0, -1}, {1, 1}, {1, -1}, {-1, 1}, {-1, -1}};
     private final int rows;
     private final int columns;
-    private List<List<Cell>> grid;
+    private List<List<Location>> grid;
 
     public Grid(int rows, int columns){
         if(rows <= -1 || columns <= -1){
@@ -28,17 +28,17 @@ public class Grid {
         this.grid = new ArrayList<>();
 
         for (int i = 0; i < rows; i++) {
-            List<Cell> newRow = new ArrayList<>();
+            List<Location> newRow = new ArrayList<>();
             for (int j = 0; j < columns; j++) {
-                Cell original = other.grid.get(i).get(j);
-                newRow.add(new Cell(original.isAlive()));
+                Location original = other.grid.get(i).get(j);
+                newRow.add(new Location(i,j));
             }
             this.grid.add(newRow);
         }
     }
 
 
-    public void seedGrid(double percentage){
+    public void initializeGrid(double percentage){
         if(percentage < 1 || percentage > 100){
             throw new IllegalArgumentException();
         }
@@ -53,12 +53,12 @@ public class Grid {
         }
 
         for (int i = 0; i < rows; i++) {
-            List<Cell> row = new ArrayList<>();
+            List<Location> row = new ArrayList<>();
             for (int j = 0; j < columns; j++) {
                 int linearIndex = i*columns+j;
                 boolean isAlive = selectedCells.contains(linearIndex);
-                Cell cell = new Cell(isAlive);
-                row.add(cell);
+                Location location = new Location(i,j);
+                row.add(location);
             }
             grid.add(row);
         }
@@ -71,8 +71,8 @@ public class Grid {
         }
         for(int i=0;i<rows;i++){
             for(int j=0;j<columns;j++){
-                Cell cell = this.grid.get(i).get(j);
-                if(cell.isAlive()){
+                Location location = this.grid.get(i).get(j);
+                if(location.isAlive()){
                     System.out.print("* ");
                 }else{
                     System.out.print("- ");
@@ -82,55 +82,19 @@ public class Grid {
         }
     }
 
+
     public void updateGrid() {
         this.grid = buildUpdatedGrid();
     }
 
-    private List<List<Cell>> buildUpdatedGrid() {
-        List<List<Cell>> newGrid = new ArrayList<>();
-        for (int i = 0; i < rows; i++) {
-            newGrid.add(buildUpdatedRow(i));
-        }
-        return newGrid;
-    }
-
-    private List<Cell> buildUpdatedRow(int rowIndex) {
-        List<Cell> newRow = new ArrayList<>();
-        for (int j = 0; j < columns; j++) {
-            newRow.add(updateCell(rowIndex, j));
-        }
-        return newRow;
-    }
-
-    private Cell updateCell(int rowIndex, int columnIndex) {
-        Cell cell = getCell(rowIndex, columnIndex);
-        int aliveNeighbours = calculateAliveNeighbours(rowIndex, columnIndex);
-        boolean nextState = cell.determineNextState(aliveNeighbours);
-        return new Cell(nextState);
-    }
 
 
-
-    private int calculateAliveNeighbours(int xCoordinate, int yCoordinate){
-        int aliveNeighbours = 0;
-        for(int[] direction: DIRECTIONS){
-            int newXCoordinate = xCoordinate+direction[0];
-            int newYCoordinate = yCoordinate+direction[1];
-            if(newXCoordinate >= 0 && newXCoordinate < rows && newYCoordinate >= 0 && newYCoordinate < columns){
-               Cell neighbouringCell = getCell(newXCoordinate, newYCoordinate);
-                if(neighbouringCell.isAlive()){
-                     aliveNeighbours++;
-                }
-            }
-        }
-return aliveNeighbours;
-    }
 
 
     public boolean canGridBeUpdatedFurther() {
         for (int i = 0; i < rows; i++) {
             for (int j = 0; j < columns; j++) {
-                Cell cell = getCell( i, j );
+                Cell cell = getLocation( i, j );
                 int aliveNeighbours = calculateAliveNeighbours(i, j);
                 if (cell.determineNextState(aliveNeighbours) != cell.isAlive()) {
                     return true;
@@ -139,7 +103,8 @@ return aliveNeighbours;
         }
         return false;
     }
-    public Cell getCell(int xCoordinate, int yCoordinate) {
+
+    public Location getLocation(int xCoordinate, int yCoordinate) {
         if(xCoordinate < 0 || yCoordinate < 0){
             throw new IllegalArgumentException();
         }

@@ -6,7 +6,7 @@ public class GameOfLife {
 
     public GameOfLife(int m, int n, int seedPercentage) {
         this.grid = new Grid(m, n);
-        grid.seedGrid(seedPercentage);
+        grid.initializeGrid(seedPercentage);
     }
 
     public void startGame() {
