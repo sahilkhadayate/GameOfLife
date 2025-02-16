@@ -6,7 +6,7 @@ public class Location {
     private final int xCoordinate;
     private final int yCoordinate;
     private final NeighbourChecker neighbourChecker;
-    private Cell cell = null;
+    private Cell cell;
 
 
     public Location(int xCoordinate, int yCoordinate, Cell cell, NeighbourChecker neighbourChecker) {

@@ -24,16 +24,7 @@ public class Grid {
     public Grid(Grid other) {
         this.rows = other.rows;
         this.columns = other.columns;
-        this.grid = new ArrayList<>();
-
-        for (int i = 0; i < rows; i++) {
-            List<Location> newRow = new ArrayList<>();
-            for (int j = 0; j < columns; j++) {
-                Location original = other.grid.get(i).get(j);
-          //      newRow.add(new Location(i,j, new Cell(false)));
-            }
-            this.grid.add(newRow);
-        }
+        this.grid = other.grid;
     }
 
 
@@ -56,8 +47,9 @@ public class Grid {
             for (int j = 0; j < columns; j++) {
                 int linearIndex = i*columns+j;
                 boolean isAlive = selectedCells.contains(linearIndex);
-           //     Location location = new Location(i,j, new Cell(isAlive));
-                row.add(null);
+                if (isAlive){
+                    row.add(new Location(i,j,new Cell(),this::isLocationAlive));
+                }
             }
             grid.add(row);
         }
@@ -79,6 +71,10 @@ public class Grid {
             }
             System.out.println();
         }
+    }
+
+    private boolean isLocationAlive(int xCoordinate, int yCoordinate){
+            return getLocation(xCoordinate,yCoordinate).isAlive();
     }
 
 
