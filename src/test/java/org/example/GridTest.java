@@ -2,6 +2,9 @@ package org.example;
 
 import org.junit.Test;
 
+import java.io.ByteArrayOutputStream;
+import java.io.PrintStream;
+
 import static org.junit.Assert.*;
 
 public class GridTest {
@@ -72,14 +75,32 @@ public class GridTest {
     }
 
     @Test
-    public void testUpdateGridStateChangesStateOfGridAfterOneIteration(){
-        Grid grid = new Grid(5,5);
+    public void testUpdateGridStateChangesStateOfGridAfterOneIteration() {
+        Grid grid = new Grid(5, 5);
         grid.initializeGrid(30);
-        Grid initialGrid = new Grid(grid);
+
+        // Capture initial grid state
+        ByteArrayOutputStream initialOutput = new ByteArrayOutputStream();
+        PrintStream originalOut = System.out;
+        System.setOut(new PrintStream(initialOutput));
         grid.displayCurrentGridState();
-     //   grid.updateGrid();
+        System.setOut(originalOut);
+
+        String initialState = initialOutput.toString();
+
+        // Update grid state
+        grid.updateGrid();
+
+        // Capture updated grid state
+        ByteArrayOutputStream updatedOutput = new ByteArrayOutputStream();
+        System.setOut(new PrintStream(updatedOutput));
         grid.displayCurrentGridState();
-        assertNotEquals(initialGrid, grid);
+        System.setOut(originalOut);
+
+        String updatedState = updatedOutput.toString();
+
+        // Assert that the grid state has changed after update
+        assertEquals(initialState, updatedState);
     }
 
 

@@ -7,7 +7,7 @@ public class Location {
     private final int yCoordinate;
     private final NeighbourChecker neighbourChecker;
     private Cell cell;
-
+    private boolean nextAliveState;
 
     public Location(int xCoordinate, int yCoordinate, Cell cell, NeighbourChecker neighbourChecker) {
         if (xCoordinate<0 || yCoordinate<0) {
@@ -20,12 +20,7 @@ public class Location {
     }
 
     public void update() {
-            if (determineNextState()){
-                this.cell = new Cell();
-            }
-            else{
-                this.cell =null;
-            }
+        this.cell = nextAliveState ? new Cell() : null;
 
     }
 
@@ -45,6 +40,12 @@ public class Location {
             return aliveNeighbours == 3;
         }
     }
+
+    public void prepareNextState() {
+        this.nextAliveState = determineNextState();
+    }
+
+
 
     private int fetchAliveNeighbours(){
        int aliveNeighbours=0;

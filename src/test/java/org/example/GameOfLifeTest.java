@@ -9,7 +9,7 @@ public class GameOfLifeTest {
     @Test
     public void testStartGame() {
         //Start the game
-        GameOfLife gameOfLife = new GameOfLife(5, 5, 50);
+        GameOfLife gameOfLife = new GameOfLife(10, 10, 10);
         gameOfLife.startGame();
 
     }

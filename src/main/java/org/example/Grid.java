@@ -8,6 +8,7 @@ import java.util.*;
 //Continue until all cells are dead or user ends the simulation
 
 public class Grid {
+
     private final int rows;
     private final int columns;
     private List<List<Location>> grid;
@@ -50,6 +51,9 @@ public class Grid {
                 if (isAlive){
                     row.add(new Location(i,j,new Cell(),this::isLocationAlive));
                 }
+                else{
+                    row.add(new Location(i,j,null,this::isLocationAlive));
+                }
             }
             grid.add(row);
         }
@@ -74,13 +78,26 @@ public class Grid {
     }
 
     private boolean isLocationAlive(int xCoordinate, int yCoordinate){
-            return getLocation(xCoordinate,yCoordinate).isAlive();
+            return isInsideBounds(xCoordinate,yCoordinate) && getLocation(xCoordinate,yCoordinate).isAlive();
     }
 
+    private boolean isInsideBounds(int xCoordinate, int yCoordinate){
+        return xCoordinate >= 0 && yCoordinate >= 0 && xCoordinate < rows && yCoordinate < columns;
+    }
 
-//    public void updateGrid() {
-//        this.grid = buildUpdatedGrid();
-//    }
+    public void updateGrid() {
+        for(List<Location> locations: grid){
+            for(Location location: locations){
+                location.prepareNextState();
+            }
+        }
+        for(List<Location> locations: grid){
+            for(Location location: locations){
+                location.update();
+            }
+        }
+
+    }
 
 
 
