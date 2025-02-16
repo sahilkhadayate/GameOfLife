@@ -13,13 +13,13 @@ public class GameOfLife {
         grid.displayCurrentGridState();
         System.out.println("\n");
         addDelay();
-        while (grid.canGridBeUpdatedFurther()) {
-            grid.updateGrid();
-            grid.displayCurrentGridState();
-
-            System.out.println("\n");
-            addDelay();
-        }
+//        while (grid.canGridBeUpdatedFurther()) {
+//            grid.updateGrid();
+//            grid.displayCurrentGridState();
+//
+//            System.out.println("\n");
+//            addDelay();
+//        }
     }
 
     private static void addDelay() {

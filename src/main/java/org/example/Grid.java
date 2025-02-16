@@ -8,7 +8,6 @@ import java.util.*;
 //Continue until all cells are dead or user ends the simulation
 
 public class Grid {
-    public static final int[][] DIRECTIONS = new int[][]{{1, 0}, {0, 1}, {-1, 0}, {0, -1}, {1, 1}, {1, -1}, {-1, 1}, {-1, -1}};
     private final int rows;
     private final int columns;
     private List<List<Location>> grid;
@@ -31,7 +30,7 @@ public class Grid {
             List<Location> newRow = new ArrayList<>();
             for (int j = 0; j < columns; j++) {
                 Location original = other.grid.get(i).get(j);
-                newRow.add(new Location(i,j));
+          //      newRow.add(new Location(i,j, new Cell(false)));
             }
             this.grid.add(newRow);
         }
@@ -57,8 +56,8 @@ public class Grid {
             for (int j = 0; j < columns; j++) {
                 int linearIndex = i*columns+j;
                 boolean isAlive = selectedCells.contains(linearIndex);
-                Location location = new Location(i,j);
-                row.add(location);
+           //     Location location = new Location(i,j, new Cell(isAlive));
+                row.add(null);
             }
             grid.add(row);
         }
@@ -83,26 +82,26 @@ public class Grid {
     }
 
 
-    public void updateGrid() {
-        this.grid = buildUpdatedGrid();
-    }
+//    public void updateGrid() {
+//        this.grid = buildUpdatedGrid();
+//    }
 
 
 
 
 
-    public boolean canGridBeUpdatedFurther() {
-        for (int i = 0; i < rows; i++) {
-            for (int j = 0; j < columns; j++) {
-                Cell cell = getLocation( i, j );
-                int aliveNeighbours = calculateAliveNeighbours(i, j);
-                if (cell.determineNextState(aliveNeighbours) != cell.isAlive()) {
-                    return true;
-                }
-            }
-        }
-        return false;
-    }
+//    public boolean canGridBeUpdatedFurther() {
+//        for (int i = 0; i < rows; i++) {
+//            for (int j = 0; j < columns; j++) {
+//                Cell cell = getLocation( i, j );
+//                int aliveNeighbours = calculateAliveNeighbours(i, j);
+//                if (cell.determineNextState(aliveNeighbours) != cell.isAlive()) {
+//                    return true;
+//                }
+//            }
+//        }
+//        return false;
+//    }
 
     public Location getLocation(int xCoordinate, int yCoordinate) {
         if(xCoordinate < 0 || yCoordinate < 0){

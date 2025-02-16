@@ -77,7 +77,7 @@ public class GridTest {
         grid.initializeGrid(30);
         Grid initialGrid = new Grid(grid);
         grid.displayCurrentGridState();
-        grid.updateGrid();
+     //   grid.updateGrid();
         grid.displayCurrentGridState();
         assertNotEquals(initialGrid, grid);
     }
