@@ -20,7 +20,13 @@ public class Location {
     }
 
     public void update() {
-    cell =null;
+            if (determineNextState()){
+                this.cell = new Cell();
+            }
+            else{
+                this.cell =null;
+            }
+
     }
 
     public boolean isAlive() {
@@ -32,7 +38,7 @@ public class Location {
         if (aliveNeighbours < 0) {
             throw new IllegalArgumentException();
         }
-        if (isAlive()) {
+        if (this.isAlive()) {
             return aliveNeighbours == 2 || aliveNeighbours == 3;
         }
         else {
