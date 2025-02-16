@@ -2,7 +2,10 @@ package org.example;
 
 import org.junit.Test;
 
+import static org.mockito.Mockito.mock;
+
 import static org.junit.Assert.*;
+import static org.mockito.Mockito.when;
 
 public class LocationTest {
 
@@ -44,5 +47,11 @@ public class LocationTest {
     public void testLocationIsAliveAndProvidesItIsAlive(){
         Location location = new Location(1,1,new Cell(),neighbourChecker);
         assertTrue(location.isAlive());
+    }
+    @Test
+    public void testCountOfNeighbouringAliveCellsIs5(){
+        NeighbourChecker neighbourChecker1 = mock(NeighbourChecker.class);
+        when(neighbourChecker1.isNeighbourAlive(1,1)).thenReturn(false).thenReturn(true).thenReturn(true).thenReturn(false).thenReturn(true).thenReturn(false).thenReturn(true).thenReturn(true);
+        Location location = new Location(1,1,new Cell(), neighbourChecker1);
     }
 }
