@@ -49,9 +49,20 @@ public class LocationTest {
         assertTrue(location.isAlive());
     }
     @Test
-    public void testCountOfNeighbouringAliveCellsIs5(){
+    public void testLocationStaysAliveWhenAliveNeighboursAre2(){
         NeighbourChecker neighbourChecker1 = mock(NeighbourChecker.class);
-        when(neighbourChecker1.isNeighbourAlive(1,1)).thenReturn(false).thenReturn(true).thenReturn(true).thenReturn(false).thenReturn(true).thenReturn(false).thenReturn(true).thenReturn(true);
+        when(neighbourChecker1.isNeighbourAlive(1,1)).thenReturn(false).thenReturn(true).thenReturn(true).thenReturn(false).thenReturn(false).thenReturn(false).thenReturn(false).thenReturn(false);
         Location location = new Location(1,1,new Cell(), neighbourChecker1);
+        location.update();
+        assertTrue(location.isAlive());
+    }
+
+    @Test
+    public void testLocationDiesWhenAliveNeighboursAre1(){
+        NeighbourChecker neighbourChecker1 = mock(NeighbourChecker.class);
+        when(neighbourChecker1.isNeighbourAlive(1,1)).thenReturn(false).thenReturn(false).thenReturn(true).thenReturn(false).thenReturn(false).thenReturn(false).thenReturn(false).thenReturn(false);
+        Location location = new Location(1,1,new Cell(), neighbourChecker1);
+        location.update();
+        assertFalse(location.isAlive());
     }
 }

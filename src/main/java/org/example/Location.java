@@ -19,10 +19,16 @@ public class Location {
         this.neighbourChecker = neighbourChecker;
     }
 
+    public void update() {
+    cell =null;
+    }
 
+    public boolean isAlive() {
+        return cell != null;
+    }
 
     private boolean determineNextState() {
-        int aliveNeighbours =aliveNeighbours();
+        int aliveNeighbours = fetchAliveNeighbours();
         if (aliveNeighbours < 0) {
             throw new IllegalArgumentException();
         }
@@ -34,11 +40,7 @@ public class Location {
         }
     }
 
-    public boolean isAlive() {
-        return cell != null;
-    }
-
-    private int aliveNeighbours(){
+    private int fetchAliveNeighbours(){
        int aliveNeighbours=0;
         for (int[] dir:DIRECTIONS){
             int newX = this.xCoordinate+dir[0];
