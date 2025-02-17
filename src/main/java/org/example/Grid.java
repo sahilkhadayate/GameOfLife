@@ -54,21 +54,26 @@ public class Grid {
         }
     }
 
-    public void displayCurrentGridState(){
+    public String displayCurrentGridState(){
+
         if(this.grid.isEmpty()){
             throw new IllegalStateException();
         }
+        StringBuilder state = new StringBuilder();
         for(int i=0;i<rows;i++){
             for(int j=0;j<columns;j++){
                 Location location = this.grid.get(i).get(j);
-                if(location.isAlive()){
+                state.append(location.isAlive() ? "* " : "- ");
+                if (location.isAlive()) {
                     System.out.print("* ");
-                }else{
+                } else {
                     System.out.print("- ");
                 }
+
             }
             System.out.println();
         }
+        return state.toString();
     }
 
     private boolean isLocationAlive(int xCoordinate, int yCoordinate){
@@ -92,23 +97,6 @@ public class Grid {
         }
 
     }
-
-
-
-
-
-//    public boolean canGridBeUpdatedFurther() {
-//        for (int i = 0; i < rows; i++) {
-//            for (int j = 0; j < columns; j++) {
-//                Cell cell = getLocation( i, j );
-//                int aliveNeighbours = calculateAliveNeighbours(i, j);
-//                if (cell.determineNextState(aliveNeighbours) != cell.isAlive()) {
-//                    return true;
-//                }
-//            }
-//        }
-//        return false;
-//    }
 
     public Location getLocation(int xCoordinate, int yCoordinate) {
         if(xCoordinate < 0 || yCoordinate < 0){

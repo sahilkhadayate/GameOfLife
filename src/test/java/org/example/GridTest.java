@@ -4,10 +4,6 @@ import org.junit.Test;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
 
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.mock;
@@ -81,29 +77,36 @@ public class GridTest {
     }
 
     @Test
+    public void test5X5ridWith20percentSeedingInitialization() {
+        Randomizer mockRandomizer = mock(Randomizer.class);
+
+        when(mockRandomizer.nextInt(25)).thenReturn(3, 7, 10, 12, 16);
+
+        Grid grid = new Grid(5, 5, mockRandomizer);
+        grid.initializeGrid(20);
+
+
+        String initialState = grid.displayCurrentGridState();
+        String expectedState =
+                "- - - * - " +
+                "- - * - - " +
+                "* - * - - " +
+                "- * - - - " +
+                "- - - - - ";
+assertEquals(expectedState, initialState);
+
+    }
+
+    @Test
     public void testUpdateGridStateChangesStateOfGridAfterOneIteration() {
         Grid grid = new Grid(5, 5,new Randomizer());
         grid.initializeGrid(30);
 
-        // Capture initial grid state
-        ByteArrayOutputStream initialOutput = new ByteArrayOutputStream();
-        PrintStream originalOut = System.out;
-        System.setOut(new PrintStream(initialOutput));
-        grid.displayCurrentGridState();
-        System.setOut(originalOut);
+        String initialState = grid.displayCurrentGridState();
 
-        String initialState = initialOutput.toString();
-
-        // Update grid state
         grid.updateGrid();
 
-        // Capture updated grid state
-        ByteArrayOutputStream updatedOutput = new ByteArrayOutputStream();
-        System.setOut(new PrintStream(updatedOutput));
-        grid.displayCurrentGridState();
-        System.setOut(originalOut);
-
-        String updatedState = updatedOutput.toString();
+        String updatedState = grid.displayCurrentGridState();
 
         // Assert that the grid state has changed after update
         assertNotEquals(initialState, updatedState);
@@ -118,15 +121,13 @@ public class GridTest {
         grid.initializeGrid(20);
         grid.displayCurrentGridState();
         grid.updateGrid();
-        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-        System.setOut(new PrintStream(outputStream));
-        grid.displayCurrentGridState();
-        System.setOut(System.out);
+
+        String updatedState = grid.displayCurrentGridState();
 
 
-        String expectedState = "- - - - - \n" + "- * * * - \n" + "- - * - - \n" + "- * - - - \n" + "- - - - - \n";
+        String expectedState = "- - - - - " + "- * * * - " + "- - * - - " + "- * - - - " + "- - - - - ";
 
-        assertEquals(expectedState, outputStream.toString());
+        assertEquals(expectedState, updatedState);
     }
 
     @Test
@@ -136,34 +137,28 @@ public class GridTest {
         when(mockRandomizer.nextInt(100)).thenReturn(5, 12, 24, 33, 47, 52, 65, 72, 84, 91);
 
         Grid grid = new Grid(10, 10, mockRandomizer);
-        grid.initializeGrid(10); // 10% seeding
-        grid.displayCurrentGridState();
+        grid.initializeGrid(10);
 
-        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-        System.setOut(new PrintStream(outputStream));
-        grid.displayCurrentGridState();
-        System.setOut(System.out);
-        String initialState = outputStream.toString();
+        String initialState = grid.displayCurrentGridState();
 
         grid.updateGrid();
 
-        outputStream = new ByteArrayOutputStream();
-        System.setOut(new PrintStream(outputStream));
-        grid.displayCurrentGridState();
-        System.setOut(System.out);
-        String updatedState = outputStream.toString();
+
+
+
+        String updatedState = grid.displayCurrentGridState();
 
         String expectedState =
-                        "- - - - - - - - - - \n" +
-                        "- - - - - - - - - - \n" +
-                        "- - - * - - - - - - \n" +
-                        "- - - - - - - - - - \n" +
-                        "- - - - - - - - - - \n" +
-                        "- - - - - - - - - - \n" +
-                        "- - - - - - - - - - \n" +
-                        "- - - - - - - - - - \n" +
-                        "- - - - - - - - - - \n" +
-                        "- - - - - - - - - - \n";
+                        "- - - - - - - - - - " +
+                        "- - - - - - - - - - " +
+                        "- - - * - - - - - - " +
+                        "- - - - - - - - - - " +
+                        "- - - - - - - - - - " +
+                        "- - - - - - - - - - " +
+                        "- - - - - - - - - - " +
+                        "- - - - - - - - - - " +
+                        "- - - - - - - - - - " +
+                        "- - - - - - - - - - ";
 
         assertEquals(expectedState, updatedState);
     }
