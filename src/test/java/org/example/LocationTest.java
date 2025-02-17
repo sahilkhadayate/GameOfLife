@@ -102,7 +102,7 @@ public class LocationTest {
         when(neighbourChecker1.isNeighbourAlive(anyInt(), anyInt())).thenAnswer(invocation -> {
             int x = invocation.getArgument(0);
             int y = invocation.getArgument(1);
-            return (x == 2 && y == 1) || (x == 0 && y == 1) || (x == 1 && y == 0)  ;
+            return (x == 2 && y == 1) || (x == 0 && y == 1) || (x == 1 && y == 0) ;
         });
 
         Location location = new Location(1,1,null, neighbourChecker1);

@@ -5,7 +5,7 @@ public class GameOfLife {
     private final Grid grid;
 
     public GameOfLife(int m, int n, int seedPercentage) {
-        this.grid = new Grid(m, n);
+        this.grid = new Grid(m, n, new Randomizer());
         grid.initializeGrid(seedPercentage);
     }
 
@@ -24,7 +24,7 @@ public class GameOfLife {
 
     private static void addDelay() {
         try {
-            Thread.sleep(1000); // Pause for 500ms to simulate animation
+            Thread.sleep(1000);
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt();
         }

@@ -11,21 +11,17 @@ public class Grid {
 
     private final int rows;
     private final int columns;
-    private List<List<Location>> grid;
+    private final Randomizer randomizer;
+    private final List<List<Location>> grid;
 
-    public Grid(int rows, int columns){
+    public Grid(int rows, int columns, Randomizer randomizer) {
         if(rows <= -1 || columns <= -1){
             throw new IllegalArgumentException();
         }
         this.rows = rows;
         this.columns = columns;
+        this.randomizer = randomizer;
         this.grid = new ArrayList<>();
-    }
-
-    public Grid(Grid other) {
-        this.rows = other.rows;
-        this.columns = other.columns;
-        this.grid = other.grid;
     }
 
 
@@ -36,11 +32,10 @@ public class Grid {
         int totalCells = rows * columns;
         int numberOfCellsToSeed = (int)(percentage * totalCells) / 100;
 
-        Random random = new Random();
         Set<Integer> selectedCells = new HashSet<>();
 
         while (selectedCells.size() < numberOfCellsToSeed) {
-            selectedCells.add(random.nextInt(totalCells));
+            selectedCells.add(randomizer.nextInt(totalCells));
         }
 
         for (int i = 0; i < rows; i++) {
@@ -57,7 +52,6 @@ public class Grid {
             }
             grid.add(row);
         }
-
     }
 
     public void displayCurrentGridState(){
